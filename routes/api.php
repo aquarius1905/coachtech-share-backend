@@ -32,12 +32,12 @@ Route::apiResource('/posts', PostController::class)->only([
 
 // index: 特定の投稿に対するコメントの表示
 // store: コメントの追加
-Route::apiResource('/posts/{id}/comments', CommentController::class)->only([
+Route::apiResource('/posts/{post}/comments', CommentController::class)->only([
   'index', 'store'
 ]);
 
 // store: 良いね追加
 // destroy: 良いね削除
-Route::apiResource('/posts/{id}/likes', LikeController::class)->only([
+Route::apiResource('/posts/{post}/likes', LikeController::class)->only([
   'store', 'destroy'
 ]);
