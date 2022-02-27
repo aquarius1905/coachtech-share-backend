@@ -24,12 +24,15 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $post_id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Like $like)
+    public function destroy(Request $request)
     {
-        $item = Like::where(['user_id', $user_id], ['post_id', $post_id])->delete();
+        $item = Like::where([
+            ['user_id', '=', $request->user_id],
+            ['post_id', '=', $request->post_id]
+            ])->delete();
         if($item) {
             return response()->json([
                 'message' => 'Deleted Successfully'
