@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class LikeController extends Controller
 {
     /**
+     * Display the specified resource.
+     *
+     * @param  int $post_id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($post_id)
+    {
+        $count = Like::where('post_id', $post_id)->count();
+        return response()->json([
+            'data' => $count
+        ], 200);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -24,15 +38,14 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($user_id, $post_id)
     {
         $item = Like::where([
-            ['user_id', '=', $request->user_id],
-            ['post_id', '=', $request->post_id]
-            ])->delete();
+            ['user_id', '=', $user_id],
+            ['post_id', '=', $post_id]
+        ])->delete();
         if($item) {
             return response()->json([
                 'message' => 'Deleted Successfully'

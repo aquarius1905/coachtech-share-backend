@@ -36,8 +36,9 @@ Route::apiResource('/posts/comments', CommentController::class)->only([
   'show', 'store'
 ]);
 
+// show: 特定の投稿に対する良いね数の表示 NG
 // store: 良いね追加 OK
-// destroy: 良いね削除
+// destroy: 良いね削除 NG
 Route::apiResource('/posts/likes', LikeController::class)->only([
-  'store', 'destroy'
+  'show', 'store', 'destroy'
 ]);
