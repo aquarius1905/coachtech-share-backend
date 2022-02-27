@@ -8,16 +8,23 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the specified resource.
      *
+     * @param  int $post_id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show($post_id)
     {
-        $items = Comment::all();
-        return response()->json([
-            'data' => $items 
-        ], 200);
+        $items = Comment::where('post_id', $post_id)->get();
+        if($items) {
+            return response()->json([
+                'data' => $items
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found'
+            ], 404);
+        }
     }
 
     /**
