@@ -10,12 +10,12 @@ class LikeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $post_id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($post_id)
+    public function show(Request $request)
     {
-        $count = Like::where('post_id', $post_id)->count();
+        $count = Like::where('post_id', $request->post)->count();
         return response()->json([
             'data' => $count
         ], 200);
@@ -38,13 +38,14 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($user_id, $post_id)
+    public function destroy(Request $request)
     {
         $item = Like::where([
-            ['user_id', '=', $user_id],
-            ['post_id', '=', $post_id]
+            ['user_id', '=', $request->user],
+            ['post_id', '=', $request->post]
         ])->delete();
         if($item) {
             return response()->json([

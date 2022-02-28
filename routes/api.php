@@ -24,7 +24,7 @@ Route::apiResource('/register', UserController::class)->only([
 
 // index：投稿一覧の表示　OK
 // store: 投稿の追加　OK
-// show: 特定のユーザーの投稿を表示 OK
+// show: 特定の投稿を表示 OK
 // destroy: 投稿の削除 OK
 Route::apiResource('/posts', PostController::class)->only([
   'index', 'store', 'show', 'destroy'
@@ -32,13 +32,21 @@ Route::apiResource('/posts', PostController::class)->only([
 
 // show: 特定の投稿に対するコメントの表示 OK
 // store: コメントの追加 OK
-Route::apiResource('/posts/comments', CommentController::class)->only([
+Route::apiResource('/comments/posts', CommentController::class)->only([
   'show', 'store'
 ]);
 
-// show: 特定の投稿に対する良いね数の表示 NG
 // store: 良いね追加 OK
-// destroy: 良いね削除 NG
 Route::apiResource('/posts/likes', LikeController::class)->only([
-  'show', 'store', 'destroy'
+  'store'
+]);
+
+// show: 特定の投稿の良いね数取得
+Route::apiResource('/likes/posts', LikeController::class)->only([
+  'show'
+]);
+
+// destroy: 良いね削除
+Route::apiResource('/likes/users/{user}/posts', LikeController::class)->only([
+  'destroy'
 ]);
