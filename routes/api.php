@@ -22,11 +22,9 @@ Route::apiResource('/register', UserController::class)->only([
   'store'
 ]);
 
-//show: ユーザーのemailからidとnameを取得
-Route::apiResource('/users', UserController::class)->only([
-  'show'
-]);
-
+//メールアドレスからユーザーidとユーザー名を取得
+//idから特定のユーザーを取得
+Route::get('/user', [UserController::class, 'show']);
 
 // index：投稿一覧の表示　OK
 // store: 投稿の追加　OK
