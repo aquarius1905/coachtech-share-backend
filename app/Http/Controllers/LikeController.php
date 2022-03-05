@@ -13,16 +13,16 @@ class LikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($post_id)
     {
-        $count = Like::where('post_id', $request->post_id)->count();
+        $count = Like::where('post_id', $post_id)->count();
         if($count){
             return response()->json([
                 'data' => $count
             ], 200);
         } else {
             return response()->json([
-                'message' => "Not found"
+                'data' => "0"
             ], 200);
         }
     }

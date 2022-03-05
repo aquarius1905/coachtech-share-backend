@@ -28,7 +28,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
-    {
+    {   
         $item = ($request->email == null) ? 
         User::where('id', $request->id)->get() : User::where('email', $request->email)->get();
         if($item) {
