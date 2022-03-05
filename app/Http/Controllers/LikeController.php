@@ -21,7 +21,9 @@ class LikeController extends Controller
                 'data' => $count
             ], 200);
         } else {
-            return 0;
+            return response()->json([
+                'message' => "Not found"
+            ], 200);
         }
     }
 
