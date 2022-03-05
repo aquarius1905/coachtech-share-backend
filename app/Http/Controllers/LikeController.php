@@ -15,7 +15,7 @@ class LikeController extends Controller
      */
     public function show(Request $request)
     {
-        $count = Like::where('post_id', $request->id)->count();
+        $count = Like::where('post_id', $request->post_id)->count();
         if($count){
             return response()->json([
                 'data' => $count
