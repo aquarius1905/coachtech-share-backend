@@ -15,11 +15,16 @@ class LikeController extends Controller
      */
     public function show(Request $request)
     {
-        $count = Like::where('post_id', $request->post)->count();
-        return response()->json([
-            'data' => $count
-        ], 200);
+        $count = Like::where('post_id', $request->id)->count();
+        if($count){
+            return response()->json([
+                'data' => $count
+            ], 200);
+        } else {
+            return 0;
+        }
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -33,6 +38,20 @@ class LikeController extends Controller
         return response()->json([
             'data' => $item
         ], 201);
+    }
+
+    /**
+     * Exist the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function isLikes(Request $request)
+    {
+        return Like::where(
+            ['user_id', '=', $request->user_id],
+            ['post_id', '=', $request->post_id]
+        )->get();
     }
 
     /**
