@@ -48,26 +48,23 @@ class LikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function isLikes(Request $request)
+    public function count(Request $request)
     {
-        return Like::where(
-            ['user_id', '=', $request->user_id],
-            ['post_id', '=', $request->post_id]
-        )->get();
-    }
+        $item = Like::where('user_id', $request->user_id)->where('post_id', $request->post_id)->get();
+        return response()->json([
+            'data' => $item
+        ], 200);
+    }   
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Like  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($user_id, $post_id)
     {
-        $item = Like::where([
-            ['user_id', '=', $request->user],
-            ['post_id', '=', $request->post]
-        ])->delete();
+        $item = Like::where('user_id', $user_id)->where('post_id', $post_id)->delete();
         if($item) {
             return response()->json([
                 'message' => 'Deleted Successfully'

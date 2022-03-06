@@ -56,4 +56,4 @@ Route::apiResource('/likes/users/{user}/posts', LikeController::class)->only([
 ]);
 
 //特定の人から特定の投稿に対する「良いね」が存在するかどうか取得
-Route::get('/likes', [LikeController::class, 'isLikes']);
+Route::get('/likes', [LikeController::class, 'count']);
