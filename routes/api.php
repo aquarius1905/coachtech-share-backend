@@ -37,7 +37,7 @@ Route::apiResource('/posts', PostController::class)->only([
 // show: 特定の投稿に対するコメントの表示 OK
 // store: コメントの追加 OK
 Route::apiResource('/comments/posts', CommentController::class)->only([
-  'show', 'store'
+  'show', 'store', 'destroy'
 ]);
 
 // store: 良いね追加 OK

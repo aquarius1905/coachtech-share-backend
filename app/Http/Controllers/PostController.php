@@ -68,7 +68,7 @@ class PostController extends Controller
         $item = Post::where('id', $post->id)->delete();
         if($item) {
             return response()->json([
-                'message' => 'Deleted Successfully'
+                'message' => 'Deleted successfully'
             ], 200);
         } else {
             return response()->json([

@@ -67,7 +67,7 @@ class LikeController extends Controller
         $item = Like::where('user_id', $user_id)->where('post_id', $post_id)->delete();
         if($item) {
             return response()->json([
-                'message' => 'Deleted Successfully'
+                'message' => 'Deleted successfully'
             ], 200);
         } else {
             return response()->json([

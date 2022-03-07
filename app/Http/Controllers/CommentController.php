@@ -41,4 +41,24 @@ class CommentController extends Controller
             'data' => $item
         ], 201);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $post_id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($post_id)
+    {
+        $item = Comment::where('post_id', $post_id)->delete();
+        if($item) {
+            return response()->json([
+                'data' => 'Deleted successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found'
+            ], 404);
+        }
+    }
 }
