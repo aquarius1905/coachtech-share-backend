@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -18,7 +19,7 @@ class CommentController extends Controller
         $items = Comment::where('post_id', $post_id)->get();
         if($items) {
             return response()->json([
-                'data' => $items
+                'data' => $items,
             ], 200);
         } else {
             return response()->json([

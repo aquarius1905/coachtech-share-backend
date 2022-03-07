@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -44,8 +45,10 @@ class PostController extends Controller
     {
         $item = Post::find($post);
         if($item) {
+            $like = Like::where('post_id', $post->id)->count();
             return response()->json([
-                'data' => $item
+                'data' => $item,
+                'like_num' => $like
             ], 200);
         } else {
             return response()->json([
