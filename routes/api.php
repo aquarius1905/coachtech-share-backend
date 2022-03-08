@@ -34,13 +34,14 @@ Route::apiResource('/posts', PostController::class)->only([
   'index', 'store', 'show', 'destroy'
 ]);
 
-// show: 特定の投稿に対するコメントの表示 OK
-// store: コメントの追加 OK
+// show: 特定の投稿に対するコメントの表示
+// store: コメントの追加
+// destroy: 投稿が削除された場合はコメントも追加
 Route::apiResource('/comments/posts', CommentController::class)->only([
   'show', 'store', 'destroy'
 ]);
 
-// store: 良いね追加 OK
+// store: 良いね追加
 Route::apiResource('/posts/likes', LikeController::class)->only([
   'store'
 ]);

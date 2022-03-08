@@ -29,11 +29,12 @@ class UserController extends Controller
      */
     public function show(Request $request)
     {   
-        $item = ($request->email == null) ? 
-        User::where('id', $request->id)->get() : User::where('email', $request->email)->get();
+        $item = ($request->id) ? 
+        User::where('id', $request->id)->get() :
+        User::where('email', $request->email)->get();
         if($item) {
             return response()->json([
-                'data' => $item
+                'data' => $item,
             ], 200);
         } else {
             return response()->json([
