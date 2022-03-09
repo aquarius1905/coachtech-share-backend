@@ -17,19 +17,18 @@ use App\Http\Controllers\LikeController;
 |
 */
 
-// store: ユーザー新規登録 OK
+// ユーザー新規登録
 Route::apiResource('/register', UserController::class)->only([
   'store'
 ]);
 
-//メールアドレスからユーザーidとユーザー名を取得
-//idから特定のユーザーを取得
+//ユーザー名又はメールアドレスからユーザー情報を取得
 Route::get('/user', [UserController::class, 'show']);
 
-// index：投稿一覧の表示　OK
-// store: 投稿の追加　OK
-// show: 特定の投稿を表示 OK
-// destroy: 投稿の削除 OK
+// index：投稿一覧の表示
+// store: 投稿の追加
+// show: 特定の投稿を表示
+// destroy: 投稿の削除
 Route::apiResource('/posts', PostController::class)->only([
   'index', 'store', 'show', 'destroy'
 ]);
@@ -41,20 +40,20 @@ Route::apiResource('/comments/posts', CommentController::class)->only([
   'show', 'store', 'destroy'
 ]);
 
-// store: 良いね追加
-Route::apiResource('/posts/likes', LikeController::class)->only([
-  'store'
-]);
-
-// show: 特定の投稿の良いね数取得
+// 特定の投稿の良いね数取得
 Route::apiResource('/likes/posts', LikeController::class)->only([
   'show'
 ]);
 
-// destroy: 良いね削除
+// 良いね追加
+Route::apiResource('/posts/likes', LikeController::class)->only([
+  'store'
+]);
+
+// 良いね削除
 Route::apiResource('/likes/users/{user}/posts', LikeController::class)->only([
   'destroy'
 ]);
 
 //特定の人から特定の投稿に対する「良いね」が存在するかどうか取得
-Route::get('/likes', [LikeController::class, 'count']);
+Route::get('/likes', [LikeController::class, 'exists']);

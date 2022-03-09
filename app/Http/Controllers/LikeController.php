@@ -48,11 +48,11 @@ class LikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function count(Request $request)
+    public function exists(Request $request)
     {
-        $item = Like::where('user_id', $request->user_id)->where('post_id', $request->post_id)->get();
+        $count = Like::where('user_id', $request->user_id)->where('post_id', $request->post_id)->get()->count();
         return response()->json([
-            'data' => $item
+            'data' => $count
         ], 200);
     }   
 

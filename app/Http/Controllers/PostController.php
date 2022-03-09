@@ -45,6 +45,7 @@ class PostController extends Controller
     {
         $item = Post::find($post);
         if($item) {
+            //特定の投稿の良いね数も取得
             $like = Like::where('post_id', $post->id)->count();
             return response()->json([
                 'data' => $item,
