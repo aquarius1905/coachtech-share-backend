@@ -35,7 +35,7 @@ Route::apiResource('/posts', PostController::class)->only([
 
 // show: 特定の投稿に対するコメントの表示
 // store: コメントの追加
-// destroy: 投稿が削除された場合はコメントも追加
+// destroy: 投稿が削除された場合はコメントも削除
 Route::apiResource('/comments/posts', CommentController::class)->only([
   'show', 'store', 'destroy'
 ]);
