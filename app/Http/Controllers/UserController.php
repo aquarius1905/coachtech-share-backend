@@ -29,17 +29,22 @@ class UserController extends Controller
      */
     public function show(Request $request)
     {   
-        $item = ($request->id) ? 
-        User::where('id', $request->id)->get() :
-        User::where('email', $request->email)->get();
-        if($item) {
+        $user = ($request->id) ? 
+        User::where('id', $request->id)->first() :
+        User::where('email', $request->email)->first();
+        if($user) {
+            if($request->id) {
+                return response()->json([
+                    'name' => $user->name,
+                ], 200);
+            }
             return response()->json([
-                'data' => $item,
+                'id' => $user->id,
             ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Not found'
-            ], 404);
         }
+
+        return response()->json([
+            'message' => 'Not found'
+        ], 404);
     }
 }

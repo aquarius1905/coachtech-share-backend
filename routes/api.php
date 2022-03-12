@@ -22,7 +22,8 @@ Route::apiResource('/register', UserController::class)->only([
   'store'
 ]);
 
-//ユーザー名又はメールアドレスからユーザー情報を取得
+//ユーザーidからユーザー名を取得
+//メールアドレスからユーザーidを取得
 Route::get('/user', [UserController::class, 'show']);
 
 // index：投稿一覧の表示
@@ -33,17 +34,14 @@ Route::apiResource('/posts', PostController::class)->only([
   'index', 'store', 'show', 'destroy'
 ]);
 
-// show: 特定の投稿に対するコメントの表示
+// show: 特定の投稿に対するコメントの取得
 // store: コメントの追加
 // destroy: 投稿が削除された場合はコメントも削除
 Route::apiResource('/comments/posts', CommentController::class)->only([
   'show', 'store', 'destroy'
 ]);
-
-// 特定の投稿の良いね数取得
-Route::apiResource('/likes/posts', LikeController::class)->only([
-  'show'
-]);
+// 特定の投稿に対するコメント数取得
+Route::get('/comments/posts', [CommentController::class, 'countComments']);
 
 // 良いね追加
 Route::apiResource('/posts/likes', LikeController::class)->only([
@@ -55,5 +53,5 @@ Route::apiResource('/likes/users/{user}/posts', LikeController::class)->only([
   'destroy'
 ]);
 
-//特定の人から特定の投稿に対する「良いね」が存在するかどうか取得
-Route::get('/likes', [LikeController::class, 'exists']);
+// 特定の投稿の良いね数取得
+Route::get('/likes', [LikeController::class, 'countLikes']);

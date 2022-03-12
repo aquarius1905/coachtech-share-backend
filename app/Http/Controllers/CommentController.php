@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Like;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -18,14 +19,25 @@ class CommentController extends Controller
     {
         $items = Comment::where('post_id', $post_id)->get();
         if($items) {
+            foreach($items as $item) {
+                $user = User::where('id', $item->user_id)->first();
+                $item->user_name = $user->name;
+            }
             return response()->json([
                 'data' => $items,
             ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Not found'
-            ], 404);
         }
+        return response()->json([
+            'message' => 'Not found'
+        ], 404);
+    }
+
+    public function countComments(Request $request) 
+    {
+        $count = Comment::where('post_id', $post_id)->count();
+        return response()->json([
+            'count' => $count,
+        ], 200);
     }
 
     /**
@@ -33,10 +45,12 @@ class CommentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function store(Request $request)
     {
         $item = Comment::create($request->all());
+        $user = User::where('id', $item->user_id)->first();
+        $item->user_name = $user->name;
         return response()->json([
             'data' => $item
         ], 201);

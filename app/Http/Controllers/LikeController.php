@@ -8,27 +8,6 @@ use Illuminate\Http\Request;
 class LikeController extends Controller
 {
     /**
-     * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show($post_id)
-    {
-        $count = Like::where('post_id', $post_id)->count();
-        if($count){
-            return response()->json([
-                'data' => $count
-            ], 200);
-        } else {
-            return response()->json([
-                'data' => "0"
-            ], 200);
-        }
-    }
-
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -42,19 +21,14 @@ class LikeController extends Controller
         ], 201);
     }
 
-    /**
-     * Exist the specified resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function exists(Request $request)
+    public function countLikes(Request $request)
     {
-        $count = Like::where('user_id', $request->user_id)->where('post_id', $request->post_id)->get()->count();
+        $count = Like::where('post_id', $request->post_id)->where('user_id', $request->user_id)->count();
         return response()->json([
-            'data' => $count
+            'count' => $count
         ], 200);
-    }   
+    }
+
 
     /**
      * Remove the specified resource from storage.
