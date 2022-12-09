@@ -18,15 +18,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $items = Post::all();
-        foreach($items as $item) {
-            $user = User::where('id', $item->user_id)->first();
-            $item->user_name = $user->name;
-            $count = Like::where('post_id', $item->id)->count();
-            $item->like_count = $count;
-        }
+        $items = Post::with(['user:id,name', 'likes_count'])->get();
+
         return response()->json([
-            'data' => $items 
+            'data' => $items
         ], 200);
     }
 
@@ -55,7 +50,7 @@ class PostController extends Controller
     public function show($id)
     {
         $item = Post::find($id);
-        if($item) {
+        if ($item) {
             $user = User::where('id', $item->user_id)->first();
             $item->user_name = $user->name;
             $like = Like::where('post_id', $id)->count();
@@ -79,7 +74,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $item = Post::where('id', $post->id)->delete();
-        if($item) {
+        if ($item) {
             Comment::where('post_id', $post->id)->delete();
             Like::where('post_id', $post->id)->delete();
             return response()->json([

@@ -13,4 +13,14 @@ class Comment extends Model
         'post_id' => 'required',
         'comment' => 'required | max:120'
     );
+
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
+
+    public function post()
+    {
+        $this->belongsTo(Post::class);
+    }
 }

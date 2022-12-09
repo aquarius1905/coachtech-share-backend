@@ -18,8 +18,8 @@ class CommentController extends Controller
     public function show($post_id)
     {
         $items = Comment::where('post_id', $post_id)->get();
-        if($items) {
-            foreach($items as $item) {
+        if ($items) {
+            foreach ($items as $item) {
                 $user = User::where('id', $item->user_id)->first();
                 $item->user_name = $user->name;
             }
@@ -32,9 +32,9 @@ class CommentController extends Controller
         ], 404);
     }
 
-    public function countComments(Request $request) 
+    public function countComments(Request $request)
     {
-        $count = Comment::where('post_id', $post_id)->count();
+        $count = Comment::where('post_id', $request->id)->count();
         return response()->json([
             'count' => $count,
         ], 200);
@@ -45,7 +45,7 @@ class CommentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */ 
+     */
     public function store(Request $request)
     {
         $item = Comment::create($request->all());
@@ -65,7 +65,7 @@ class CommentController extends Controller
     public function destroy($post_id)
     {
         $item = Comment::where('post_id', $post_id)->delete();
-        if($item) {
+        if ($item) {
             return response()->json([
                 'data' => 'Deleted successfully',
             ], 200);

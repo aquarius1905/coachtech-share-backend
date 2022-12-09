@@ -12,4 +12,14 @@ class Like extends Model
         'user_id' => 'required',
         'post_id' => 'required'
     );
+
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
+
+    public function post()
+    {
+        $this->belongsTo(Post::class);
+    }
 }
