@@ -14,6 +14,11 @@ class Comment extends Model
         'comment' => 'required | max:120'
     );
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function user()
     {
         $this->belongsTo(User::class);

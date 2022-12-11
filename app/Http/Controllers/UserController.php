@@ -12,7 +12,7 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */ 
+     */
     public function store(Request $request)
     {
         $item = User::create($request->all());
@@ -28,12 +28,12 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
-    {   
-        $user = ($request->id) ? 
-        User::where('id', $request->id)->first() :
-        User::where('email', $request->email)->first();
-        if($user) {
-            if($request->id) {
+    {
+        $user = ($request->id) ?
+            User::where('id', $request->id)->first() :
+            User::where('email', $request->email)->first();
+        if ($user) {
+            if ($request->id) {
                 return response()->json([
                     'name' => $user->name,
                 ], 200);

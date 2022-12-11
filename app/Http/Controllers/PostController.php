@@ -7,7 +7,7 @@ use App\Models\Like;
 use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
-
+use Log;
 
 class PostController extends Controller
 {
@@ -18,7 +18,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $items = Post::with(['user:id,name', 'likes_count'])->get();
+        $items = Post::with('user:id,name')
+            ->withCount('likes')->get();
 
         return response()->json([
             'data' => $items
@@ -33,9 +34,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $item = Post::create($request->all());
-        $user = User::where('id', $request->user_id)->first();
-        $item->user_name = $user->name;
+        $post = Post::create($request->all());
+
+        $item = Post::where('id', $post->id)
+            ->with(['user:id,name'])
+            ->withCount('likes')
+            ->first();
+
         return response()->json([
             'data' => $item
         ], 201);
@@ -73,10 +78,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $item = Post::where('id', $post->id)->delete();
-        if ($item) {
-            Comment::where('post_id', $post->id)->delete();
-            Like::where('post_id', $post->id)->delete();
+        $result = Post::where('id', $post->id)->delete();
+
+        if ($result) {
             return response()->json([
                 'message' => 'Deleted successfully'
             ], 200);

@@ -13,6 +13,11 @@ class Like extends Model
         'post_id' => 'required'
     );
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function user()
     {
         $this->belongsTo(User::class);
