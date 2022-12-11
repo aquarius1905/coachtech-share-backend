@@ -30,8 +30,8 @@ https://github.com/aquarius1905/shareapp-frontend
 
 ## テーブル設計
 
-![tbl-image](/assets/image/table.png)
+![tbl-image](/public/images/table.png)
 
 ## ER 図
 
-![erd-image](/assets/image/erd.png)
+![erd-image](/public/images/erd.png)
