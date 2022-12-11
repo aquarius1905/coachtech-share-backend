@@ -2,42 +2,36 @@
 
 Twitter 風 SNS アプリ
 
-< --- トップ画面の画像 ---- >
-
 ## 作成した目的
 
-Vue.js, Nuxt.js, Laravel の理解を深めるため
+Laravel、Vue.js、Nuxt.js の理解を深めるため
 
 ## アプリケーション URL
 
-デプロイの URL を貼り付る
-ログインなどがあれば、注意事項など
-※デプロイしていなければ記載しなくて良い
+https://share-app-84535.web.app/
 
 ## 他のリポジトリ
 
+フロントエンドのリポジトリ：
 https://github.com/aquarius1905/shareapp-frontend
 
 ## 機能一覧
 
--   例）ログイン機能
+-   ユーザー認証（Firebase Authentication）
+-   投稿の一覧表示　追加処理　削除処理
+-   投稿の追加
+-   投稿の削除
+-   いいね機能
+-   コメント機能
 
 ## 使用技術（実行環境）
 
--   Laravel 8.x
+-   PHP, Laravel
 
 ## テーブル設計
 
-< --- 作成したテーブル設計の画像 ---- >
+![tbl-image](/assets/image/table.png)
 
 ## ER 図
 
-< --- 作成した ER 図の画像 ---- >
-
-## 環境構築
-
-他の人でもプロジェクトを実行できるようコマンドや編集ファイルを記載する
-
-## 他に記載することがあれば記述する
-
-例） ## アカウントの種類（テストユーザーなど）
+![erd-image](/assets/image/erd.png)
