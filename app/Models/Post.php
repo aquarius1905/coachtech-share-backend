@@ -8,11 +8,6 @@ class Post extends Model
 {
     protected $guarded = array('id');
 
-    public static $rules = array(
-        'user_id' => 'required',
-        'post' => 'required | max:120'
-    );
-
     protected $hidden = [
         'created_at',
         'updated_at'
@@ -28,8 +23,8 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function likes_count()
+    public function comments()
     {
-        return optional($this->likes)->count();
+        return $this->hasMany(Comment::class);
     }
 }

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Like;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\Post\StoreRequest;
 
 class PostController extends Controller
 {
@@ -16,8 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $items = Post::with('user:id,name')
-            ->withCount('likes')->get();
+        $items = Post::with(['user:id,name', 'comments'])
+            ->withCount('likes')
+            ->get();
 
         return response()->json([
             'data' => $items
@@ -27,10 +26,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Post\StoreRequest
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $post = Post::create($request->all());
 
@@ -45,33 +44,9 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $item = Post::find($id);
-        if ($item) {
-            $user = User::where('id', $item->user_id)->first();
-            $item->user_name = $user->name;
-            $like = Like::where('post_id', $id)->count();
-            $item->like_count = $like;
-            return response()->json([
-                'data' => $item,
-            ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Not found'
-            ], 404);
-        }
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)

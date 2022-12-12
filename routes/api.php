@@ -31,16 +31,13 @@ Route::get('/user', [UserController::class, 'show']);
 // show: 特定の投稿を表示
 // destroy: 投稿の削除
 Route::apiResource('/posts', PostController::class)->only([
-  'index', 'store', 'show', 'destroy'
+  'index', 'store', 'destroy'
 ]);
 
-// show: 特定の投稿に対するコメントの取得
 // store: コメントの追加
 Route::apiResource('/comments/posts', CommentController::class)->only([
-  'show', 'store'
+  'store'
 ]);
-// 特定の投稿に対するコメント数取得
-Route::get('/comments/posts', [CommentController::class, 'countComments']);
 
 // 良いね追加
 Route::apiResource('/posts/likes', LikeController::class)->only([

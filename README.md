@@ -1,14 +1,8 @@
-# アプリケーション名
-
-Twitter 風 SNS アプリ
+# Twitter 風 SNS アプリ
 
 ## 作成した目的
 
 Laravel、Vue.js、Nuxt.js の理解を深めるため
-
-## アプリケーション URL
-
-https://share-app-84535.web.app/
 
 ## 他のリポジトリ
 
@@ -24,9 +18,13 @@ https://github.com/aquarius1905/shareapp-frontend
 -   いいね機能
 -   コメント機能
 
-## 使用技術（実行環境）
+## 使用技術
 
--   PHP, Laravel
+| カテゴリ       | 技術スタック                           |
+| -------------- | -------------------------------------- |
+| フロントエンド | HTML, CSS, JavaScript, Vue.js, Nuxt.js |
+| バックエンド   | PHP, Laravel                           |
+| データベース   | MySQL                                  |
 
 ## テーブル設計
 
