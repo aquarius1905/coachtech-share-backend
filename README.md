@@ -12,7 +12,7 @@ https://github.com/aquarius1905/shareapp-frontend
 ## 機能一覧
 
 -   ユーザー認証（Firebase Authentication）
--   投稿の一覧表示　追加処理　削除処理
+-   投稿の一覧表示
 -   投稿の追加
 -   投稿の削除
 -   いいね機能
